@@ -1,5 +1,6 @@
 package fr.uha.ensisa.archi.usermanager.controller;
 
+import com.github.javafaker.Faker;
 import fr.uha.ensisa.archi.usermanager.model.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,8 +37,11 @@ public class UserController {
 
     @GetMapping("/user/addRandom")
     public User addRandom() {
+        Faker faker = new Faker();
         User user = new User();
-
+        user.setFirstName(faker.backToTheFuture().character().replace(" ", "-"));
+        user.setLastName(faker.harryPotter().spell());
+        user.setFinancialCapital(faker.number().numberBetween(0, 100));
 
         this.users.add(user);
         return user;
